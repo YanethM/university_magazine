@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout } from "antd";
 import MenuTop from "../components/AdminComponents/MenuTop";
-import MenuSider from "../components/AdminComponents/MenuSidebar";
+import MenuSider from "../components/AdminComponents/MenuSider";
 import "./LayoutBasic.scss";
 
 export default function LayoutBasic() {

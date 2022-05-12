@@ -1,43 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Layout } from "antd";
 import MenuTop from "../components/AdminComponents/MenuTop";
-import MenuSider from "../components/AdminComponents/MenuSidebar";
+import MenuSider from "../components/AdminComponents/MenuSider";
 import "./LayoutAdmin.scss";
+import AdminSignIn from "../pages/Admin/SignIn/SignIn";
 
 export default function LayoutAdmin(props) {
-  const [menuCollapsed, setMenuCollapsed] = useState(false);
+  const [menuCollapsed, setMenuCollapsed] = useState(true);
   const { Header, Content, Footer } = Layout;
-  const { routes } = props;
-  console.log({routes})
-  return (
-    <Layout>
-      <MenuSider menuCollapsed={menuCollapsed} />
-      <Layout
-        className="layout-admin"
-        style={{ marginLeft: menuCollapsed ? "80px" : "200px" }}
-      >
-        <Header className="layout-admin__header">
-          <MenuTop
-            menuCollapsed={menuCollapsed}
-            setMenuCollapsed={setMenuCollapsed}
-          />
-        </Header>
-        <Content className="layout-admin__content">
-        
-           {/*  <LoadRoutes routes={routes}  /> */}
-    
-        </Content>
-        <Footer className="layout-admin__footer">MERN Project</Footer>
+  const { children } = props;
+  let navigate = useNavigate();
+  console.log(children);
+
+  /* Creamos la constante user para trabajar el login */
+  const user = null;
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
+  
+  if (user) {
+    return (
+      <Layout>
+        <MenuSider menuCollapsed={menuCollapsed} />
+        <Layout
+          className="layout-admin"
+          style={{ marginLeft: menuCollapsed ? "80px" : "200px" }}
+        >
+          <Header className="layout-admin__header">
+            <MenuTop
+              menuCollapsed={menuCollapsed}
+              setMenuCollapsed={setMenuCollapsed}
+            />
+          </Header>
+          <Content className="layout-admin__content">{children}</Content>
+          <Footer className="layout-admin__footer">MERN Project 2022</Footer>
+        </Layout>
       </Layout>
-    </Layout>
-  );
+    );
+  }
 }
-/* function LoadRoutes({routes}) {
-  return routes.map((route, index) => (
-    <Route
-      key={index}
-      path={route.path}
-      element={route.component}
-    />
-  ));
-} */
