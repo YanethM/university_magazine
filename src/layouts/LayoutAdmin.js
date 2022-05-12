@@ -5,24 +5,20 @@ import { Layout } from "antd";
 import MenuTop from "../components/AdminComponents/MenuTop";
 import MenuSider from "../components/AdminComponents/MenuSider";
 import "./LayoutAdmin.scss";
-import AdminSignIn from "../pages/Admin/SignIn/SignIn";
 
 export default function LayoutAdmin(props) {
   const [menuCollapsed, setMenuCollapsed] = useState(true);
   const { Header, Content, Footer } = Layout;
   const { children } = props;
   let navigate = useNavigate();
-  console.log(children);
-
   /* Creamos la constante user para trabajar el login */
   const user = null;
-
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user]);
-  
+
   if (user) {
     return (
       <Layout>

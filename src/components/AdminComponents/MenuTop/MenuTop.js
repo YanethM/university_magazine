@@ -4,13 +4,12 @@ import { Button } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  PoweroffOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import "./MenuTop.scss";
 
 export default function MenuTop(props) {
   const { menuCollapsed, setMenuCollapsed } = props;
-  console.log(props)
   return (
     <div className="menu-top">
       <div className="menu-top__left">
@@ -21,7 +20,7 @@ export default function MenuTop(props) {
       </div>
       <div className="menu-top__right">
         <Button type="link" onClick={() => console.log("Log Off!")}>
-          <PoweroffOutlined />
+          <UserOutlined />
         </Button>
       </div>
     </div>

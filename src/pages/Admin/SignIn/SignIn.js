@@ -1,31 +1,39 @@
-import React from "react";
-import { Layout, Tabs } from "antd";
-import Logo from "../../../assets/img/png/Logo.png";
-
+import { UserOutlined, MailOutlined } from "@ant-design/icons";
+import { Layout, Form, Input, Button } from "antd";
 import "./SigIn.scss";
-
-export default function SignIn() {
-  const { Content } = Layout;
-  const { TabPane } = Tabs;
-
+export function SignIn() {
   return (
-    <Layout className="sign-in">
-      <Content className="sign-in__content">
-        <h1 className="sign-in__content-logo">
-          <img src={Logo} alt="Agustin Navarro Galdon" />
-        </h1>
-
-        <div className="sign-in__content-tabs">
-          <Tabs type="card">
-            <TabPane tab={<span>Entrar</span>} key="1">
-              {/* Formulario login */}
-            </TabPane>
-            <TabPane tab={<span>Nuevo usuario</span>} key="2">
-              {/* Fomulario registro */}
-            </TabPane>
-          </Tabs>
-        </div>
-      </Content>
+    <Layout className="">
+      <Form>
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: "Por favor ingresa tu nombre!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Input placeholder="default size" prefix={<UserOutlined />} />;
+        <Input placeholder="default size" prefix={<MailOutlined />} />;
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item
+          label="Repeat Password"
+          name="repeat-password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </Layout>
   );
 }
