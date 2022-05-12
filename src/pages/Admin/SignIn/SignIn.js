@@ -1,6 +1,5 @@
 import { UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Layout, Form, Input, Button } from "antd";
-import "./SigIn.scss";
 export function SignIn() {
   return (
     <Layout className="">
