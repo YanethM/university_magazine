@@ -1,6 +1,6 @@
 import { UserOutlined, MailOutlined } from "@ant-design/icons";
-import { Layout, Form, Input, Button } from "antd";
-export function SignIn() {
+import { Layout, Form, Input, Button }  from "antd";
+export default function SignIn() {
   return (
     <Layout className="">
       <Form>

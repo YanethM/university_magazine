@@ -4,22 +4,25 @@ import { useNavigate } from "react-router-dom";
 import { Layout } from "antd";
 import MenuTop from "../components/AdminComponents/MenuTop";
 import MenuSider from "../components/AdminComponents/MenuSider";
+import {GithubOutlined  } from "@ant-design/icons";
+
 import "./LayoutAdmin.scss";
 
 export default function LayoutAdmin(props) {
-  const [menuCollapsed, setMenuCollapsed] = useState(true);
+  const [menuCollapsed, setMenuCollapsed] = useState(false);
   const { Header, Content, Footer } = Layout;
   const { children } = props;
   let navigate = useNavigate();
+
   /* Creamos la constante user para trabajar el login */
-  const user = null;
+/*   const user = null;
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, [user]);
 
-  if (user) {
+  if (user) { */
     return (
       <Layout>
         <MenuSider menuCollapsed={menuCollapsed} />
@@ -34,9 +37,11 @@ export default function LayoutAdmin(props) {
             />
           </Header>
           <Content className="layout-admin__content">{children}</Content>
-          <Footer className="layout-admin__footer">MERN Project 2022</Footer>
+          <Footer className="layout-admin__footer">
+          <GithubOutlined style={{ fontSize: '17px' }} /> YanethM</Footer>
         </Layout>
       </Layout>
     );
   }
-}
+/* }
+ */

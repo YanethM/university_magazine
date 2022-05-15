@@ -5,20 +5,20 @@
   
 
   button {
-    color: $font-grey-light;
+    color: $font-grey-dark;
 
     &:hover {
-      color: $primary-color;
+      color: $primary-color-hover;
     }
     &:focus,
     &:active {
-      color: white;
+      color: $primary-color;
     }
   }
 
   &__left {
     &-logo {
-      width: 75px;
+      width: 70px;
       padding: 0 10px;
     }
   }
