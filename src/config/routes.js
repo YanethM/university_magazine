@@ -4,7 +4,7 @@ import LayoutBasic from "../layouts/LayoutBasic";
 import AdminHome from "../pages/Admin";
 import AdminSignIn from "../pages/Admin/SignIn";
 import Home from "../pages/Home";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/NotFound/NotFound";
 import Contact from "../pages/Contact";
 
 const routesAdmin = [

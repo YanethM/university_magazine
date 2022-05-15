@@ -1,9 +1,7 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { HomeOutlined, AppstoreOutlined } from "@ant-design/icons";
-
 import "./MenuSider.scss";
 
 export default function MenuSider(props) {
