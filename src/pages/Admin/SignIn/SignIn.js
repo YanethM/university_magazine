@@ -1,38 +1,23 @@
-import { UserOutlined, MailOutlined } from "@ant-design/icons";
-import { Layout, Form, Input, Button }  from "antd";
+import React from "react";
+import { Layout, Tabs } from "antd";
+import Login from "../../../components/AdminComponents/Login";
+import Register from "../../../components/AdminComponents/Register";
+
 export default function SignIn() {
+  const { Content } = Layout;
+  const { TabPane } = Tabs;
   return (
-    <Layout className="">
-      <Form>
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Por favor ingresa tu nombre!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Input placeholder="default size" prefix={<UserOutlined />} />;
-        <Input placeholder="default size" prefix={<MailOutlined />} />;
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label="Repeat Password"
-          name="repeat-password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+    <Layout>
+      <Content>
+        <Tabs type="card">
+          <TabPane tab={<span>Iniciar sesión</span>} key="1">
+            <Login />
+          </TabPane>
+          <TabPane tab={<span>Registro</span>} key="2">
+            <Register />
+          </TabPane>
+        </Tabs>
+      </Content>
     </Layout>
   );
 }

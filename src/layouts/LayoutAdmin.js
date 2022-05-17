@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from "react";
+import { Routes, Route} from "react-router-dom";
 import { Layout } from "antd";
 import MenuTop from "../components/AdminComponents/MenuTop";
 import MenuSider from "../components/AdminComponents/MenuSider";
 import { GithubOutlined } from "@ant-design/icons";
-
+import SignIn from "../pages/Admin/SignIn";
 import "./LayoutAdmin.scss";
 
 export default function LayoutAdmin(props) {
   const [menuCollapsed, setMenuCollapsed] = useState(false);
   const { Header, Content, Footer } = Layout;
   const { children } = props;
-  /* let navigate = useNavigate();
-
-   const user = null;
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user]);
-
-  if (user) { */
+  const user = null;
+  /* const location = useLocation(); */
+  if (!user) {
+    return (
+      <>
+        <SignIn />
+        <Routes>
+          <Route path="/admin/login/*" element={<SignIn />} />
+        </Routes>
+        {/* <Navigate to={"/admin/login"} state={{ from: location }} replace /> */}
+      </>
+    );
+  }
   return (
     <Layout>
       <MenuSider menuCollapsed={menuCollapsed} />
@@ -43,5 +45,3 @@ export default function LayoutAdmin(props) {
     </Layout>
   );
 }
-/* }
- */

@@ -14,7 +14,7 @@ const routesAdmin = [
     component: AdminHome,
   },
   {
-    path: "/admin/login",
+    path: "/admin/login/*",
     layout: LayoutAdmin,
     component: AdminSignIn,
   },
