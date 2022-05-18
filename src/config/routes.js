@@ -9,7 +9,7 @@ import Contact from "../pages/Contact";
 
 const routesAdmin = [
   {
-    path: "/admin",
+    path: "/admin/*",
     layout: LayoutAdmin,
     component: AdminHome,
   },
