@@ -30,7 +30,8 @@ export default function LayoutBasic(props) {
           <Content className="layout-admin__content">{children}</Content>
           <Footer className="layout-admin__footer">
           <Button type="link" onClick={() => console.log("Github")}>
-            <GithubOutlined style={{ fontSize: "17px" }} /> YanethM
+          <GithubOutlined style={{ fontSize: "17px" }} /> Universidad Autónoma de Manizales
+
           </Button>
         </Footer>
         </Layout>

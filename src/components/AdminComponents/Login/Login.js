@@ -1,11 +1,49 @@
-import React from "react";
-import { Form, Button, Input } from "antd";
+import React, {useState} from "react";
+import { Form, Button, Input,notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { signIn } from "../../../api/user";
+import { ACCESS_TOKEN, REFRESH_TOKEN} from "../../../api/constants";
+
+
 
 import "./Login.scss";
 export default function Login() {
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: ""
+  });
+
+  const changeForm = e => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value
+    });
+  };
+  const login = async e => {
+    e.preventDefault();
+    console.log(inputs)
+    const result = await signIn(inputs);
+
+    if (result.message) {
+      notification["error"]({
+        message: result.message
+      });
+    } else {
+      const { accessToken, refreshToken } = result;
+      localStorage.setItem(ACCESS_TOKEN, accessToken);
+      localStorage.setItem(REFRESH_TOKEN, refreshToken);
+
+      notification["success"]({
+        message: "Login correcto."
+      });
+
+      window.location.href = "/admin";
+    }
+
+    console.log(result);
+  };
   return (
-    <Form className="login-form">
+    <Form className="login-form"  onChange={changeForm} >
       <Form.Item>
         <Input
          prefix={
@@ -29,7 +67,7 @@ export default function Login() {
         />
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit" className="login-form__button">
+        <Button htmlType="submit" onClick={login} className="login-form__button">
           Entrar
         </Button>
       </Form.Item>

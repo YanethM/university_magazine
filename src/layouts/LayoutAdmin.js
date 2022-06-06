@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "antd";
+import { Layout, Button } from "antd";
 import MenuTop from "../components/AdminComponents/MenuTop";
 import MenuSider from "../components/AdminComponents/MenuSider";
 import { GithubOutlined } from "@ant-design/icons";
 import SignIn from "../pages/Admin/SignIn";
-import { Button } from "antd";
+import { getAccessToken, getRefreshToken } from "../api/auth";
 
 import "./LayoutAdmin.scss";
 
@@ -14,6 +14,11 @@ export default function LayoutAdmin(props) {
   const { Header, Content, Footer } = Layout;
   const { children } = props;
   const user = null;
+
+  const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
+  console.log(accessToken + refreshToken);
+
   /* const location = useLocation(); */
   if (!user) {
     return (
@@ -42,7 +47,7 @@ export default function LayoutAdmin(props) {
         <Content className="layout-admin__content">{children}</Content>
         <Footer className="layout-admin__footer">
           <Button type="link" onClick={() => console.log("Github")}>
-            <GithubOutlined style={{ fontSize: "17px" }} /> YanethM
+            <GithubOutlined style={{ fontSize: "17px" }} /> Universidad Autónoma de Manizales
           </Button>
         </Footer>
       </Layout>
