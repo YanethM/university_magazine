@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Tabs } from "antd";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "../../../components/AdminComponents/Login";
 import Register from "../../../components/AdminComponents/Register";
 import Logo from "../../../assets/img/png/Logo.png";
@@ -15,7 +15,7 @@ export default function SignIn() {
     return (
       <>
         <Routes>
-          <Route path="/admin/login/*" element={<SignIn />} />
+          <Route path="/admin" />
         </Routes>
       </>
     );

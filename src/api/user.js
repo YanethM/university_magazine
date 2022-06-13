@@ -37,7 +37,6 @@ export function signUpApi(data) {
     });
 }
 
-
 export function signIn(data) {
   const url = `${basePath}/${apiVersion}/signin`;
   const params = {
@@ -57,6 +56,109 @@ export function signIn(data) {
       return result;
     })
     .catch((err) => {
+      return err.message;
+    });
+}
+
+export function getUsers(token) {
+  const url = `${basePath}/${apiVersion}/users`;
+  const params = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  };
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return err.message;
+    });
+}
+
+export function getActiveUsers(token, status) {
+  const url = `${basePath}/${apiVersion}/active-users?active=${status}`;
+  const params = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+  };
+  return fetch(url, params)
+    .then(response => {
+      return response.json();
+    })
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err.message;
+    });
+}
+
+export function getAvatar(avatarName) {
+  const url = `${basePath}/${apiVersion}/get-avatar/${avatarName}`;
+
+  return fetch(url)
+    .then(response => {
+      return response.url;
+    })
+    .catch(err => {
+      return err.message;
+    });
+}
+
+export function activateUser(token, userId, status) {
+  const url = `${basePath}/${apiVersion}/activate-user/${userId}`;
+
+  const params = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    body: JSON.stringify({
+      active: status
+    })
+  };
+
+  return fetch(url, params)
+    .then(response => {
+      return response.json();
+    })
+    .then(result => {
+      return result.message;
+    })
+    .catch(err => {
+      return err.message;
+    });
+}
+
+export function deleteUser(token, userId) {
+  const url = `${basePath}/${apiVersion}/delete-user/${userId}`;
+
+  const params = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    }
+  };
+
+  return fetch(url, params)
+    .then(response => {
+      return response.json();
+    })
+    .then(result => {
+      return result.message;
+    })
+    .catch(err => {
       return err.message;
     });
 }

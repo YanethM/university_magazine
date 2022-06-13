@@ -53,7 +53,6 @@ export default function RegisterForm() {
 
   const register = async (e) => {
     e.preventDefault();
-    console.log("Estoy en register");
     const emailVal = inputs.email;
     const passwordVal = inputs.password;
     const repeatPasswordVal = inputs.repeatPassword;

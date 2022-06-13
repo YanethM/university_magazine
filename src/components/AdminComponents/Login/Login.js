@@ -3,9 +3,6 @@ import { Form, Button, Input,notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { signIn } from "../../../api/user";
 import { ACCESS_TOKEN, REFRESH_TOKEN} from "../../../api/constants";
-
-
-
 import "./Login.scss";
 export default function Login() {
   const [inputs, setInputs] = useState({
@@ -32,14 +29,11 @@ export default function Login() {
       const { accessToken, refreshToken } = result;
       localStorage.setItem(ACCESS_TOKEN, accessToken);
       localStorage.setItem(REFRESH_TOKEN, refreshToken);
-
       notification["success"]({
         message: "Login correcto."
       });
-
       window.location.href = "/admin";
     }
-
     console.log(result);
   };
   return (
