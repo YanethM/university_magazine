@@ -23,6 +23,7 @@ import Modal from "../../../Modal";
 const { confirm } = ModalAntd;
 
 export default function ListUsers(props) {
+  /* page user */
   const { usersActive, usersInactive, setReloadUsers } = props;
   const [viewUsersActives, setViewUsersActives] = useState(true);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -36,6 +37,7 @@ export default function ListUsers(props) {
       <AddUserForm
         setIsVisibleModal={setIsVisibleModal}
         setReloadUsers={setReloadUsers}
+        /* Faalta implementar */
       />
     );
   };

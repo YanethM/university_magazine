@@ -11,13 +11,9 @@ export default function Users() {
   const token = getAccessToken();
 
   useEffect(() => {
-    /* Validamos el active que es el segundo param
-    si es true carga un object con usuarios activos */
     getActiveUsers(token, true).then((response) => {
       setUsersActive(response.users);
     });
-    /* Validamos el active que es el segundo param
-    si es false carga un object con usuarios inactivos */
     getActiveUsers(token, false).then((response) => {
       setUsersInactive(response.users);
     });

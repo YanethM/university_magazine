@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Select, Button, Row, Col, notification } from "antd";
-import {} from "@ant-design/icons";
+import {
+  UserAddOutlined
+} from "@ant-design/icons";
 import { signIn } from "../../../../api/user";
 import { getAccessToken } from "../../../../api/auth";
 import "./AddUser.scss";
@@ -59,7 +61,97 @@ const AddForm = (props) => {
   /* Trabajar con un select o lista desplegable */
   const { Option } = Select;
   /* Formulario */
-  return <Form>
-      {/* Crear formulario que cumple con el diseño */}
-  </Form>;
+  return (
+    <Form>
+      <Form className="form-edit" onSubmit={addUser}>
+        <Row gutter={24}>
+          <Col span={12}>
+            <Form.Item>
+              <Input
+                prefix={<UserAddOutlined />}
+                placeholder="Nombre"
+                value={userData.name}
+                onChange={(e) =>
+                  setUserData({ ...userData, name: e.target.value })
+                }
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item>
+              <Input
+                prefix={<UserAddOutlined />}
+                placeholder="Apellidos"
+                value={userData.lastname}
+                onChange={(e) =>
+                  setUserData({ ...userData, lastname: e.target.value })
+                }
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={24}>
+          <Col span={12}>
+            <Form.Item>
+              <Input
+                prefix={<UserAddOutlined />}
+                placeholder="Correo electronico"
+                value={userData.email}
+                onChange={(e) =>
+                  setUserData({ ...userData, email: e.target.value })
+                }
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item>
+              <Select
+                placeholder="Seleccióna una rol"
+                onChange={(e) => setUserData({ ...userData, role: e })}
+                value={userData.role}
+              >
+                <Option value="admin">Administrador</Option>
+                <Option value="editor">Editor</Option>
+                <Option value="reviewr">Revisor</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={24}>
+          <Col span={12}>
+            <Form.Item>
+              <Input
+                prefix={<UserAddOutlined />}
+                type="password"
+                placeholder="Contraseña"
+                onChange={(e) =>
+                  setUserData({ ...userData, password: e.target.value })
+                }
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item>
+              <Input
+                prefix={<UserAddOutlined />}
+                type="password"
+                placeholder="Repetir contraseña"
+                onChange={(e) =>
+                  setUserData({ ...userData, repeatPassword: e.target.value })
+                }
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="btn-submit">
+            Crear Usuario
+          </Button>
+        </Form.Item>
+      </Form>
+    </Form>
+  );
 };

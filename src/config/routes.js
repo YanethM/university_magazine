@@ -5,6 +5,8 @@ import LayoutBasic from "../layouts/LayoutBasic";
 import AdminHome from "../pages/Admin";
 import AdminSignIn from "../pages/Admin/SignIn";
 import AdminUsers from "../pages/Admin/Users";
+import AdminSubjects from "../pages/Admin/Subjects";
+
 
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound/NotFound";
@@ -25,6 +27,11 @@ const routesAdmin = [
     path: "/admin/users",
     layout: LayoutAdmin,
     component: AdminUsers,
+  },
+  {
+    path: "/admin/subjects",
+    layout: LayoutAdmin,
+    component: AdminSubjects,
   },
 ];
 
