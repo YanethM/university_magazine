@@ -37,7 +37,6 @@ export default function ListUsers(props) {
       <AddUserForm
         setIsVisibleModal={setIsVisibleModal}
         setReloadUsers={setReloadUsers}
-        /* Faalta implementar */
       />
     );
   };
@@ -46,17 +45,28 @@ export default function ListUsers(props) {
     <div className="list-users">
       <div className="list-users__header">
         <div className="list-users__header-switch">
-          <Switch
-            defaultChecked
-            onChange={() => setViewUsersActives(!viewUsersActives)}
-          />
-          <span>
-            {viewUsersActives ? "Usuarios Activos" : "Usuarios Inactivos"}
-          </span>
+          <List.Item
+            actions={[
+              <Button type="primary" onClick={addUserModal}>
+                <UserAddOutlined />
+              </Button>,
+            ]}
+          >
+            <List.Item.Meta
+              title={
+                <span>
+                  {viewUsersActives ? "Usuarios Activos" : "Usuarios Inactivos"}
+                </span>
+              }
+              avatar={
+                <Switch
+                  defaultChecked
+                  onChange={() => setViewUsersActives(!viewUsersActives)}
+                />
+              }
+            ></List.Item.Meta>
+          </List.Item>
         </div>
-        <Button type="primary" onClick={addUserModal}>
-          <UserAddOutlined />
-        </Button>
       </div>
 
       {viewUsersActives ? (
@@ -97,7 +107,7 @@ function UsersActive(props) {
   const editUser = (user) => {
     setIsVisibleModal(true);
     setModalTitle(
-      `Editar ${user.name ? user.name : "..."} ${
+      `Editar ${user.name_user ? user.name_user : "..."} ${
         user.lastname ? user.lastname : "..."
       }`
     );
@@ -200,7 +210,7 @@ function UserActive(props) {
       <List.Item.Meta
         avatar={<Avatar src={avatar ? avatar : NoAvatar} />}
         title={`
-                ${user.name ? user.name : "..."} 
+                ${user.name_user ? user.name_user : "..."} 
                 ${user.lastname ? user.lastname : "..."}
             `}
         description={user.email}
@@ -242,15 +252,15 @@ function UserInactive(props) {
     const accesToken = getAccessToken();
 
     activateUser(accesToken, user._id, true)
-      .then((response) => {
+      .then(response => {
         notification["success"]({
-          message: response,
+          message: response
         });
         setReloadUsers(true);
       })
-      .catch((err) => {
+      .catch(err => {
         notification["error"]({
-          message: err,
+          message: err
         });
       });
   };
@@ -267,9 +277,11 @@ function UserInactive(props) {
       onOk() {
         deleteUser(accesToken, user._id)
           .then((response) => {
+            console.log(user._id);
             notification["success"]({
               message: response,
             });
+            console.log(user._id);
             setReloadUsers(true);
           })
           .catch((err) => {
@@ -280,7 +292,6 @@ function UserInactive(props) {
       },
     });
   };
-
   return (
     <List.Item
       actions={[
@@ -295,9 +306,9 @@ function UserInactive(props) {
       <List.Item.Meta
         avatar={<Avatar src={avatar ? avatar : NoAvatar} />}
         title={`
-                    ${user.name ? user.name : "..."} 
-                    ${user.lastname ? user.lastname : "..."}
-                `}
+                  ${user.name_user ? user.name_user : "..."} 
+                  ${user.lastname ? user.lastname : "..."}
+              `}
         description={user.email}
       />
     </List.Item>

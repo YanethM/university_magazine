@@ -82,7 +82,7 @@ export function getUsers(token) {
 }
 
 export function getActiveUsers(token, status) {
-  const url = `${basePath}/${apiVersion}/active-users?active=${status}`;
+  const url = `${basePath}/${apiVersion}/activeusers?active=${status}`;
   const params = {
     method: "GET",
     headers: {
@@ -103,7 +103,7 @@ export function getActiveUsers(token, status) {
 }
 
 export function getAvatar(avatarName) {
-  const url = `${basePath}/${apiVersion}/get-avatar/${avatarName}`;
+  const url = `${basePath}/${apiVersion}/getavatar/${avatarName}`;
 
   return fetch(url)
     .then(response => {
@@ -115,7 +115,7 @@ export function getAvatar(avatarName) {
 }
 
 export function activateUser(token, userId, status) {
-  const url = `${basePath}/${apiVersion}/activate-user/${userId}`;
+  const url = `${basePath}/${apiVersion}/activateuser/${userId}`;
 
   const params = {
     method: "PUT",
@@ -141,7 +141,7 @@ export function activateUser(token, userId, status) {
 }
 
 export function updateUser(token, user, userId) {
-  const url = `${basePath}/${apiVersion}/update-user/${userId}`;
+  const url = `${basePath}/${apiVersion}/updateuser/${userId}`;
 
   const params = {
     method: "PUT",
@@ -164,9 +164,8 @@ export function updateUser(token, user, userId) {
     });
 }
 
-
 export function deleteUser(token, userId) {
-  const url = `${basePath}/${apiVersion}/delete-user/${userId}`;
+  const url = `${basePath}/${apiVersion}/deleteuser/${userId}`;
 
   const params = {
     method: "DELETE",
@@ -189,7 +188,7 @@ export function deleteUser(token, userId) {
 }
 
 export function uploadAvatar(token, avatar, userId) {
-  const url = `${basePath}/${apiVersion}/upload-avatar/${userId}`;
+  const url = `${basePath}/${apiVersion}/uploadavatar/${userId}`;
 
   const formData = new FormData();
   formData.append("avatar", avatar, avatar.name);
@@ -208,6 +207,30 @@ export function uploadAvatar(token, avatar, userId) {
     })
     .then(result => {
       return result;
+    })
+    .catch(err => {
+      return err.message;
+    });
+}
+
+export function signUpAdmin(token, data) {
+  const url = `${basePath}/${apiVersion}/signupadmin`;
+
+  const params = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    body: JSON.stringify(data)
+  };
+
+  return fetch(url, params)
+    .then(response => {
+      return response.json();
+    })
+    .then(result => {
+      return result.message;
     })
     .catch(err => {
       return err.message;
