@@ -5,7 +5,6 @@ import MenuTop from "../components/AdminComponents/MenuTop";
 import MenuSider from "../components/AdminComponents/MenuSider";
 import { GithubOutlined } from "@ant-design/icons";
 import SignIn from "../pages/Admin/SignIn";
-import { getAccessToken, getRefreshToken } from "../api/auth";
 import useAuth from "../hooks/useAuth";
 
 import "./LayoutAdmin.scss";

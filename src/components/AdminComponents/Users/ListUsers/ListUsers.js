@@ -248,19 +248,19 @@ function UserInactive(props) {
     }
   }, [user]);
 
-  const activateUser = () => {
+  const activateUserF = () => {
     const accesToken = getAccessToken();
 
     activateUser(accesToken, user._id, true)
-      .then(response => {
+      .then((response) => {
         notification["success"]({
-          message: response
+          message: response,
         });
         setReloadUsers(true);
       })
-      .catch(err => {
+      .catch((err) => {
         notification["error"]({
-          message: err
+          message: err,
         });
       });
   };
@@ -295,7 +295,7 @@ function UserInactive(props) {
   return (
     <List.Item
       actions={[
-        <Button type="primary" onClick={activateUser}>
+        <Button type="primary" onClick={activateUserF}>
           <UserSwitchOutlined />
         </Button>,
         <Button type="danger" onClick={showDeleteConfirm}>
