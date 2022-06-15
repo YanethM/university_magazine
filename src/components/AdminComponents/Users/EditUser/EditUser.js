@@ -10,7 +10,7 @@ import {
   Col,
   notification,
 } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
 import NoAvatar from "../../../../assets/img/png/user.png";
 import { uploadAvatar, getAvatar } from "../../../../api/user";
@@ -21,19 +21,21 @@ import "./EditUser.scss";
 export default function EditUserForm(props) {
   const { user, setIsVisibleModal, setReloadUsers } = props;
   const [avatar, setAvatar] = useState(null);
+  const [userData, setUserData] = useState({});
 
-  const [userData, setUserData] = useState({
-    name_user: user.name_user,
-    lastname: user.lastname,
-    email: user.email,
-    role: user.role,
-    active: user.status,
-    avatar: user.avatar,
-  });
+  useEffect(() => {
+    setUserData({
+      name_user: user.name_user,
+      lastname: user.lastname,
+      email: user.email,
+      role: user.role,
+      avatar: user.avatar
+    });
+  }, [user]);
 
   useEffect(() => {
     if (user.avatar) {
-      getAvatar(user.avatar).then((response) => {
+      getAvatar(user.avatar).then(response => {
         setAvatar(response);
       });
     } else {
@@ -41,16 +43,22 @@ export default function EditUserForm(props) {
     }
   }, [user]);
 
-  function updateUser(e) {
-    console.log(userData);
-    e.preventDefault();
+  useEffect(() => {
+    if (avatar) {
+      setUserData({ ...userData, avatar: avatar.file });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [avatar]);
+
+  const updateUser = () => {
     const token = getAccessToken();
     let userUpdate = userData;
 
     if (userUpdate.password || userUpdate.repeatPassword) {
       if (userUpdate.password !== userUpdate.repeatPassword) {
         notification["error"]({
-          message: "Las contraseñas tienen que ser iguales.",
+          message:
+            "Passwords must match. Las contraseñas tienen que ser iguales."
         });
         return;
       } else {
@@ -60,32 +68,33 @@ export default function EditUserForm(props) {
 
     if (!userUpdate.name_user || !userUpdate.lastname || !userUpdate.email) {
       notification["error"]({
-        message: "El nombre, apellidos y email son obligatorios.",
+        message:
+          "Name, lastname and email fields must be filled. El nombre, apellidos e email son obligatorios."
       });
       return;
     }
 
     if (typeof userUpdate.avatar === "object") {
-      uploadAvatar(token, userUpdate.avatar, user._id).then((response) => {
+      uploadAvatar(token, userUpdate.avatar, user._id).then(response => {
         userUpdate.avatar = response.avatarName;
-        updateUser(token, userUpdate, user._id).then((result) => {
+        updateUser(token, userUpdate, user._id).then(result => {
           notification["success"]({
-            message: result.message,
+            message: result.message
           });
           setIsVisibleModal(false);
           setReloadUsers(true);
         });
       });
     } else {
-      updateUser(token, userUpdate, user._id).then((result) => {
+      updateUser(token, userUpdate, user._id).then(result => {
         notification["success"]({
-          message: result.message,
+          message: result.message
         });
         setIsVisibleModal(false);
         setReloadUsers(true);
       });
     }
-  }
+  };
 
   return (
     <div className="edit-user-form">
@@ -116,7 +125,7 @@ function UploadAvatar(props) {
   }, [avatar]);
 
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    acceptedFiles => {
       const file = acceptedFiles[0];
       setAvatar({ file, preview: URL.createObjectURL(file) });
     },
@@ -126,7 +135,7 @@ function UploadAvatar(props) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/jpeg, image/png",
     noKeyboard: true,
-    onDrop,
+    onDrop
   });
 
   return (
@@ -144,29 +153,27 @@ function UploadAvatar(props) {
 function EditForm(props) {
   const { userData, setUserData, updateUser } = props;
   const { Option } = Select;
-  const [form] = Form.useForm();
+
   return (
-    <Form className="form-edit" form={form}>
+    <Form className="form-edit" onFinish={updateUser}>
       <Row gutter={24}>
         <Col span={12}>
           <Form.Item>
             <Input
-              prefix={<EditOutlined />}
-              placeholder="Apellidos"
+              prefix={<UserOutlined />}
+              placeholder="Name/Nombre"
               value={userData.name_user}
-              onChange={(e) =>
-                setUserData({ ...userData, name_user: e.target.value })
-              }
+              onChange={e => setUserData({ ...userData, name_user: e.target.value })}
             />
           </Form.Item>
         </Col>
         <Col span={12}>
           <Form.Item>
             <Input
-              prefix={<EditOutlined />}
-              placeholder="Apellidos"
+              prefix={<UserOutlined />}
+              placeholder="Lastname/Apellidos"
               value={userData.lastname}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, lastname: e.target.value })
               }
             />
@@ -178,10 +185,10 @@ function EditForm(props) {
         <Col span={12}>
           <Form.Item>
             <Input
-              prefix={<EditOutlined />}
+              prefix={<MailOutlined />}
               placeholder="Correo electronico"
               value={userData.email}
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, email: e.target.value })
               }
             />
@@ -190,26 +197,38 @@ function EditForm(props) {
         <Col span={12}>
           <Form.Item>
             <Select
-              placeholder="Seleccióna una rol"
-              onChange={(e) => setUserData({ ...userData, role: e })}
+              placeholder="Selecciona un rol"
+              onChange={e => setUserData({ ...userData, role: e })}
               value={userData.role}
             >
               <Option value="admin">Administrador</Option>
               <Option value="editor">Editor</Option>
-              <Option value="reviwer">Revisor</Option>
+              <Option value="reviewer">Revisor</Option>
             </Select>
           </Form.Item>
         </Col>
       </Row>
 
+
+      <Row gutter={24}>
+        <Col span={24}>
+          <Form.Item label="Active">
+            <Switch
+              checkedChildren="Active"
+              unCheckedChildren="Inactive"
+              checked={userData.active}
+            />
+          </Form.Item>
+        </Col>
+        </Row>
       <Row gutter={24}>
         <Col span={12}>
           <Form.Item>
             <Input
-              prefix={<EditOutlined />}
+              prefix={<LockOutlined />}
               type="password"
               placeholder="Contraseña"
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, password: e.target.value })
               }
             />
@@ -218,10 +237,10 @@ function EditForm(props) {
         <Col span={12}>
           <Form.Item>
             <Input
-              prefix={<EditOutlined />}
+              prefix={<LockOutlined />}
               type="password"
               placeholder="Repetir contraseña"
-              onChange={(e) =>
+              onChange={e =>
                 setUserData({ ...userData, repeatPassword: e.target.value })
               }
             />
@@ -229,28 +248,8 @@ function EditForm(props) {
         </Col>
       </Row>
 
-      <Row gutter={24}>
-        <Col span={12}>
-          <Form.Item label="Rol">
-            <Switch
-              checkedChildren="Admin"
-              unCheckedChildren="Regular"
-              checked={userData.role}
-            />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Form.Item label="Status">
-            <Switch
-              checkedChildren="Active"
-              unCheckedChildren="Inactive"
-              checked={userData.active}
-            />
-          </Form.Item>
-        </Col>
-      </Row>
       <Form.Item>
-        <Button type="primary" className="btn-submit" onClick={updateUser}>
+        <Button type="primary" htmlType="submit" className="btn-submit">
           Actualizar Usuario
         </Button>
       </Form.Item>
