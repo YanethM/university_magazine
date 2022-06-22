@@ -159,7 +159,7 @@ function EditForm(props) {
   const { Option } = Select;
   const [form] = Form.useForm ()
   return (
-    <Form className="form-edit" form={form}  >
+    <Form className="form-edit" onFinish={updateUser} form={form}  >
       <Row gutter={24}>
         <Col span={12}>
           <Form.Item>
@@ -218,8 +218,8 @@ function EditForm(props) {
         <Col span={24}>
           <Form.Item label="Active">
             <Switch
-              checkedChildren="Active"
-              unCheckedChildren="Inactive"
+              checkedChildren="active"
+              unCheckedChildren="inactive"
               checked={userData.active}
             />
           </Form.Item>
@@ -253,7 +253,7 @@ function EditForm(props) {
       </Row>
 
       <Form.Item>
-        <Button type="primary" onClick={updateUser} className="btn-submit">
+        <Button type="primary" htmlType="submit" className="btn-submit">
           Actualizar Usuario
         </Button>
       </Form.Item>
