@@ -4,15 +4,17 @@ import { basePath, apiVersion } from "./config";
 
 export function getAccessToken() {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  if (!accessToken || accessToken === "null") return null;
-
+  if (!accessToken || accessToken === "null") {
+    return null;
+  }
   return expireToken(accessToken) ? null : accessToken;
 }
 
 export function getRefreshToken() {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-  if (!refreshToken || refreshToken === "null") return null;
-
+  if (!refreshToken || refreshToken === "null") {
+    return null;
+  }
   return expireToken(refreshToken) ? null : refreshToken;
 }
 
