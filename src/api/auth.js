@@ -33,7 +33,7 @@ const expireToken = (token) => {
 };
 
 export function refreshAccessToken(refreshToken) {
-  const url = `${basePath}/${apiVersion}/refresh-token`;
+  const url = `${basePath}/${apiVersion}/refreshaccesstoken`;
   const bodyObject = {
     refreshToken: refreshToken,
   };
